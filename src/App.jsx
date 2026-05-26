@@ -231,22 +231,22 @@ const apps = [
 ];
 
 const integrations = [
-  "ChatGPT",
-  "Claude",
-  "Mistral",
-  "Excel",
-  "Google Sheets",
-  "Notion",
-  "GitHub",
-  "Vercel",
-  "Airtable",
-  "Salesforce",
-  "HubSpot",
-  "BigQuery",
-  "Azure SQL",
-  "AWS S3",
-  "PostgreSQL",
-  "Streamlit",
+  { name: "ChatGPT", href: "https://chatgpt.com" },
+  { name: "Claude", href: "https://claude.ai" },
+  { name: "Mistral", href: "https://mistral.ai" },
+  { name: "Excel", href: "https://www.microsoft.com/en-gb/microsoft-365/excel" },
+  { name: "Google Sheets", href: "https://www.google.com/sheets/about/" },
+  { name: "Notion", href: "https://www.notion.so" },
+  { name: "GitHub", href: "https://github.com/mpetalcorin" },
+  { name: "Vercel", href: "https://vercel.com" },
+  { name: "Airtable", href: "https://www.airtable.com" },
+  { name: "Salesforce", href: "https://www.salesforce.com" },
+  { name: "HubSpot", href: "https://www.hubspot.com" },
+  { name: "BigQuery", href: "https://cloud.google.com/bigquery" },
+  { name: "Azure SQL", href: "https://azure.microsoft.com/en-gb/products/azure-sql/database" },
+  { name: "AWS S3", href: "https://aws.amazon.com/s3/" },
+  { name: "PostgreSQL", href: "https://www.postgresql.org" },
+  { name: "Streamlit", href: "https://streamlit.io" },
 ];
 
 const defaultProjects = [
@@ -1284,16 +1284,28 @@ function App() {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
             {integrations.map((item) => (
-              <motion.div
+              <motion.a
                 whileHover={{ y: -4, scale: 1.04 }}
-                key={item}
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                title={`Open ${item.name}`}
                 className={cx(
-                  "rounded-2xl border px-4 py-4 text-center text-sm font-bold",
-                  lightMode ? "border-slate-200 bg-slate-50 text-slate-700" : "border-white/10 bg-white/[0.04] text-slate-200"
+                  "group flex items-center justify-center gap-2 rounded-2xl border px-4 py-4 text-center text-sm font-bold transition",
+                  lightMode
+                    ? "border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-800"
+                    : "border-white/10 bg-white/[0.04] text-slate-200 hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:text-cyan-100"
                 )}
               >
-                {item}
-              </motion.div>
+                <span>{item.name}</span>
+                <ExternalLink
+                  className={cx(
+                    "h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100",
+                    lightMode ? "text-cyan-700" : "text-cyan-200"
+                  )}
+                />
+              </motion.a>
             ))}
           </div>
         </Card>
